@@ -12,17 +12,11 @@ This project automates the retrieval of device information from a Cisco IOS-XE-l
 ## 📸 Screenshots
 
 ### Dashboard Overview  
-![Dashboard Screenshot](images/dashboard.png)
+![Dashboard Screenshot](interface.png)
 
 ### JSON Output from Script  
-![JSON Output](images/json_output.png)
+![JSON Output](dashboard.png)
 
-> To add your own screenshots:
-> - Create an `images/` folder in your project
-> - Save your screenshots as `dashboard.png`, `json_output.png`, etc.
-> - Replace the image filenames above if needed
-
----
 
 ##  Features
 
