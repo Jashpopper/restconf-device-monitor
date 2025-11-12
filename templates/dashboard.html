@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RESTCONF Monitoring Dashboard</title>
+    <meta http-equiv="refresh" content="10">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        h1 { color: #333; }
+        table { border-collapse: collapse; width: 60%; margin-bottom: 30px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>RESTCONF Monitoring Dashboard</h1>
+    <p><strong>Hostname:</strong> {{ hostname }}</p>
+    <p><strong>Uptime:</strong> {{ uptime }}</p>
+
+    <h2>Interfaces</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>IP Address</th>
+        </tr>
+        {% for iface in interfaces %}
+        <tr>
+            <td>{{ iface.name }}</td>
+            <td>{{ iface['ietf-ip:ipv4']['address'][0].ip }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Interface IPs (Bar Chart)</h2>
+    <canvas id="ipChart" width="600" height="300"></canvas>
+
+    <script>
+        const labels = {{ interfaces | map(attribute='name') | list | tojson }};
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Interface IPs (dummy values)',
+                data: labels.map((_, i) => i + 1),
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+            }]
+        };
+
+        new Chart(document.getElementById('ipChart'), {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
